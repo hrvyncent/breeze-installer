@@ -1,0 +1,16 @@
+{
+    "name": "xeno/breeze-installer",
+    "description": "Installer for Laravel Breeze (vue) without scaffolding",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Xeno\\BreezeInstaller\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "harvicapino22",
+            "email": "harvicapino22@gmail.com"
+        }
+    ]
+}

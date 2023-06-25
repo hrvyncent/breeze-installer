@@ -1,0 +1,74 @@
+#!/usr/bin/env php
+<?php
+
+use Illuminate\Process\Factory;
+use Illuminate\Process\PendingProcess;
+use Illuminate\Support\Facades\Storage;
+
+require_once "../vendor/autoload.php";
+
+$process = new PendingProcess(new Factory);
+
+echo "Installing Laravel Breeze (vue) Dependencies....". PHP_EOL;
+
+$installingDependencies = $process->run("composer require laravel/breeze --dev");
+
+if (! $installingDependencies->successful()) {
+    exit($installingDependencies->errorOutput());
+}
+
+echo "\e[42mSuccess". PHP_EOL;
+echo "\e[49mBuilding Scaffolding....". PHP_EOL;
+
+// Run the `breeze:install` command.
+$runArtisan = $process->forever()->run("php artisan breeze:install vue --pest --typescript");
+
+if (!$runArtisan->successful()) {
+    exit($runArtisan->errorOutput());
+}
+
+// Install pinia
+$installPinia = $process->run('npm install --save-dev pinia');
+
+if (!$installPinia->successful()) {
+    exit($installPinia->errorOutput());
+}
+
+$process->run('cp .env.example .env.testing');
+$process->run('php artisan key:generate --env=testing');
+
+// Replace the files with pre-built one.
+$process->run('cp ./breeze/stubs/tailwind.config.js tailwind.config.js');
+$process->run('cp .breeze/stubs/RouteServiceProvider.php.stub app/Providers/RouteServiceProvider.php');
+$process->run('cp .breeze/stubs/app.ts.stub resources/js/app.ts');
+$process->run('cp .breeze/stubs/auth.php.stub routes/auth.php');
+$process->run('cp .breeze/stubs/web.php.stub routes/web.php');
+
+if (Storage::directoryExists('.git')) {
+
+    $includes = require_once './includes.php';
+    
+    // Convert the includes to string.
+    $implodeIncludes = implode(' ', $includes);
+    
+    // Build the command using converted includes.
+    $command = "git add ". $implodeIncludes;
+    
+    $git = $process->run($command);
+    
+    if (! $git->successful()) {
+        exit($git->errorOutput());
+    }
+    
+    $commit = $process->run('git commit -m "setup dependencies"');
+    
+    if (!$commit->successful()) {
+        exit($git->errorOutput());
+    }
+    
+// Clean the git directory
+$clean = $process->run('git clean . -f');
+
+}
+
+echo "\e[42mCompleted";

@@ -6,6 +6,11 @@
             "Xeno\\BreezeInstaller\\": "src/"
         }
     },
+    "require": {
+        "php": "^8.1.0",
+        "illuminate/support": "^10.13.5",
+        "illuminate/process": "^10.13.5"
+    },
     "minimum-stability": "stable",
     "authors": [
         {

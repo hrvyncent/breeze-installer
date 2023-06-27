@@ -3,8 +3,6 @@
 
 use Illuminate\Process\Factory;
 use Illuminate\Process\PendingProcess;
-use Illuminate\Support\Facades\Storage;
-
 
 $root = dirname(__DIR__);
 
@@ -44,16 +42,19 @@ if (!$installPinia->successful()) {
 $process->run('cp .env.example .env.testing');
 $process->run('php artisan key:generate --env=testing');
 
+
+$localDir = __DIR__;
+
 // Replace the files with pre-built one.
-$process->run('cp ./breeze/stubs/tailwind.config.js tailwind.config.js');
-$process->run('cp .breeze/stubs/RouteServiceProvider.php.stub app/Providers/RouteServiceProvider.php');
-$process->run('cp .breeze/stubs/app.ts.stub resources/js/app.ts');
-$process->run('cp .breeze/stubs/auth.php.stub routes/auth.php');
-$process->run('cp .breeze/stubs/web.php.stub routes/web.php');
+$process->run("cp {$localDir}/stubs/tailwind.config.js tailwind.config.js");
+$process->run("cp {$localDir}/stubs/RouteServiceProvider.php.stub app/Providers/RouteServiceProvider.php");
+$process->run("cp {$localDir}/stubs/app.ts.stub resources/js/app.ts");
+$process->run("cp {$localDir}/stubs/auth.php.stub routes/auth.php");
+$process->run("cp {$localDir}/stubs/web.php.stub routes/web.php");
 
 if (file_exists('.git')) {
 
-    $includes = require_once './includes.php';
+    $includes = require_once "{$localDir}/includes.php";
     
     // Convert the includes to string.
     $implodeIncludes = implode(' ', $includes);

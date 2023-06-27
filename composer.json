@@ -1,7 +1,6 @@
 {
     "name": "xeno-cidee/breeze-installer",
     "description": "Installer for Laravel Breeze (vue) without scaffolding",
-    "type": "project",
     "autoload": {
         "psr-4": {
             "Xeno\\BreezeInstaller\\": "src/"

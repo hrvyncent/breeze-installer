@@ -5,7 +5,14 @@ use Illuminate\Process\Factory;
 use Illuminate\Process\PendingProcess;
 use Illuminate\Support\Facades\Storage;
 
-require_once '../vendor/autoload.php';
+
+$root = dirname(__DIR__);
+
+if (! is_file(sprintf('%s/vendor/autoload.php', $root))) {
+    $root = dirname(__DIR__, 4);
+}
+
+require sprintf('%s/vendor/autoload.php', $root);
 
 $process = new PendingProcess(new Factory);
 

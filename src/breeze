@@ -51,7 +51,7 @@ $process->run('cp .breeze/stubs/app.ts.stub resources/js/app.ts');
 $process->run('cp .breeze/stubs/auth.php.stub routes/auth.php');
 $process->run('cp .breeze/stubs/web.php.stub routes/web.php');
 
-if (Storage::directoryExists('.git')) {
+if (file_exists('.git')) {
 
     $includes = require_once './includes.php';
     

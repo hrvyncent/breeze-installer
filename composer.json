@@ -6,6 +6,7 @@
             "Xeno\\BreezeInstaller\\": "src/"
         }
     },
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "harvicapino22",

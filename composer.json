@@ -1,5 +1,5 @@
 {
-    "name": "xeno-cidee/breeze-installer",
+    "name": "hrvyncent/breeze-installer",
     "description": "Installer for Laravel Breeze (vue) without scaffolding",
     "autoload": {
         "psr-4": {

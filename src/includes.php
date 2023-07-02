@@ -1,6 +1,12 @@
 <?php
 
+/**
+ * Files that will be include for git commit.
+ * 
+ * @var array<string>   $includes
+ */
 $includes = [
+    '.env.testing',
     'composer.json',
     'composer.lock',
     'package.json',

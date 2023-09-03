@@ -17,5 +17,6 @@
             "name": "harvicapino22",
             "email": "harvicapino22@gmail.com"
         }
-    ]
+    ],
+    "bin": ["./src/breeze"]
 }
